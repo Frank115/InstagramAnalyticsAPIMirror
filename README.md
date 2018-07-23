@@ -1,4 +1,7 @@
 # InstagramAnalyticsAPI
+![technology Go](https://img.shields.io/badge/technology-go-blue.svg)
+
+Esta es una API hecha en GO que se encarga de manejar datos de provenientes de Instagram y asi obtener grandes cantidades de informacion de usuarios y publicaciones con el fin de crear metricas e informes utiles para los consumidores de la aplicacion.
 
 ## Para comenzar a trabajar
 
