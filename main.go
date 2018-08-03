@@ -1,6 +1,6 @@
 package main
 
-import "github.com/mercadolibre/cx-support-brms/src/api/app"
+import "github.com/ProyectoIT/InstagramAnalyticsAPI/app"
 
 func main() {
 	app.Start()
