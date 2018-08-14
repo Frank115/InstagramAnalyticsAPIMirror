@@ -1,14 +1,20 @@
 package app
 
 import (
+	"log"
+
 	"github.com/ProyectoIT/InstagramAnalyticsAPI/config"
-	"github.com/ProyectoIT/InstagramAnalyticsAPI/controller"
+	"github.com/ProyectoIT/InstagramAnalyticsAPI/dao/mysql"
 	"github.com/gin-gonic/gin"
 )
 
 func Start() {
 	r := gin.Default()
-	r.GET("/ping", controller.Ping)
-	r.POST("/users", controller.Post)
-	r.Run(":" + config.Port) // listen and serve on 0.0.0.0:8080
+	MapEndpoints(r)
+	if err := mysql.InitDB(); err != nil {
+		log.Fatal(err)
+		return
+	}
+	r.Run(":" + config.PORT) // listen and serve on 0.0.0.0:8080
+
 }
