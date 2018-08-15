@@ -13,7 +13,7 @@ func TestPostUser(t *testing.T) {
 	jsonUser := `{"username":"rakki","password":"cono123"}`
 	r := test.StartTest()
 	w := test.MakeRequest(r, "POST", "/users", jsonUser)
-	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, http.StatusCreated, w.Code)
 	var mp map[string]interface{}
 	json.Unmarshal(w.Body.Bytes(), &mp)
 	assert.Equal(t, "success", mp["status"])
