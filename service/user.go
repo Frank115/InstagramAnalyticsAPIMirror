@@ -1,10 +1,15 @@
 package service
 
 import (
+	"github.com/ProyectoIT/InstagramAnalyticsAPI/dao/mysql"
 	"github.com/ProyectoIT/InstagramAnalyticsAPI/domain"
 )
 
-func SaveUser(user *domain.User) error {
-
-	return nil
+func CreateUser(user *domain.User) (err error) {
+	tx := mysql.DB.Begin()
+	if err = tx.Create(user).Error; err != nil {
+		tx.Rollback()
+		return
+	}
+	return tx.Commit().Error
 }

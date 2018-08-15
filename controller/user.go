@@ -14,7 +14,7 @@ func Post(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 	}
-	err = service.SaveUser(&u)
+	err = service.CreateUser(&u)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
