@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/ProyectoIT/InstagramAnalyticsAPI/domain"
 	"github.com/ProyectoIT/InstagramAnalyticsAPI/service"
@@ -23,20 +24,14 @@ func Post(c *gin.Context) {
 func DeleteUser(c *gin.Context) {
 	// dar error si el user id no es valido
 	var u domain.User
-
-	id := c.Param("user_id")
-	if id == "" { // solo me molesta si no hay nada, porque en ese caso gorm decide borrar todo
-		c.JSON(http.StatusBadRequest, gin.H{"status": http.StatusBadRequest, "message": "El usuario es invalido"})
+	id, err := strconv.Atoi(c.Param("user_id"))
+	if err != nil { // solo me molesta si no hay nada, porque en ese caso gorm decide borrar todo
+		c.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "El usuario es invalido", "error": err.Error()})
 		return
 	}
-
-	err := db.Where("user_id = ?", id).First(&u).Error
-	if err != nil {
-		//error handling?
-		c.JSON(http.StatusNotFound, gin.H{"status": http.StatusNotFound, "message": "El usuario no ha sido encontrado"})
+	//error handling over db
+	if err := service.DeleteUser(id); err != nil {
+		c.JSON(err.Status, gin.H{"status": "error", "message": err.Message, "error": err.Error()})
 	}
-	//borrar de la db
-	db.First(&u, "user_id = ?", id) // esto es para que u reciba la info y hacer delete (podria hacerlo solo una vez antes de err)
-	db.Delete(&u)                   //puede fallar al borrar?
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "message": "El usuario ha sido borrado"})
+	c.JSON(http.StatusOK, gin.H{"status": "success", "message": "El usuario ha sido borrado"})
 }
