@@ -46,3 +46,12 @@ func DeleteUser(id int) (err *domain.ApiError) {
 	}
 	return
 }
+
+func UpdateUser(user *domain.User) (err error) {
+	tx := mysql.DB.Begin()
+	if err = tx.Update(user).Error; err != nil {
+		tx.Rollback()
+		return
+	}
+	return tx.Commit().Error
+}

@@ -41,5 +41,9 @@ func Put(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 	}
-
+	err = service.UpdateUser(&u)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+	c.JSON(http.StatusOK, gin.H{"status": "success", "message": "El usuario fue modificado"})
 }
