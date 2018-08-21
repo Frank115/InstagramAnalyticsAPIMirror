@@ -35,3 +35,11 @@ func DeleteUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"status": "success", "message": "El usuario ha sido borrado"})
 }
+func Put(c *gin.Context) {
+	var u domain.User
+	err := c.BindJSON(&u)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+}
