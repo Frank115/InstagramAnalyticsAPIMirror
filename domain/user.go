@@ -4,7 +4,7 @@ import "time"
 
 // User - Estructura de un usuario
 type User struct {
-	UserID    int64     `gorm:"primary_key"" json:"user_id"`
+	UserID    int64     `gorm:"primary_key" json:"user_id"`
 	Username  string    `gorm:"size:255" json:"username"`
 	Password  string    `gorm:"size:255" json:"password"`
 	FirstName string    `gorm:"size:255" json:"firstname"`
