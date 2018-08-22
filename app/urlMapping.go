@@ -9,5 +9,6 @@ import (
 func MapEndpoints(r *gin.Engine) {
 	r.GET("/ping", controller.Ping)
 	r.POST("/users", controller.Post)
+	r.PUT("/users", controller.Put)
 
 }
