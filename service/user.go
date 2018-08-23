@@ -55,8 +55,8 @@ func UpdateUser(user *domain.User) (err error) {
 	}
 	return tx.Commit().Error
 }
-func ValidateUser(user string)(bool, error){
-	resp, err := http.Get("http://instagram.com/"+user)
+func ValidateUser(user string)(bool){
+	resp, _ := http.Get("http://instagram.com/"+user)
 	if resp.StatusCode == http.StatusOk{
 		return true
 	}else{
