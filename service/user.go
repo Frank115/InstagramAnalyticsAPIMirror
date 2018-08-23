@@ -57,9 +57,9 @@ func UpdateUser(user *domain.User) (err error) {
 }
 func ValidateUser(user string)(bool, error){
 	resp, err := http.Get("http://instagram.com/"+user)
-	if resp.StatusCode == 200{
+	if resp.StatusCode == http.StatusOk{
 		return true
 	}else{
-		return false	
+		return false
 	}
 }
